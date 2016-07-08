@@ -3,9 +3,10 @@ from __future__ import unicode_literals
 
 from django.db import models
 from mongoengine import *
+from dailycampus.settings import serverip, dbport
 # Create your models here.
-serverip = '180.209.64.38'
-connect('南京邮电大学', host = serverip, port = 27017)
+
+connect('南京邮电大学', host = serverip, port = dbport)
 #用户类
 class User(Document):
 	userId = StringField(required = True)
