@@ -286,8 +286,8 @@ def Concerns(request):
 				news = GetNews(host=serverip,
 					port=dbport,
 					database='南京邮电大学'.decode('utf-8'),
-					collection='南京邮电大学| Nanjing University of Posts and Telecommunications'.decode('utf-8'),
-					condition={'section': '南邮要闻'.decode('utf-8')},
+					collection='| Nanjing University of Posts and Telecommunications'.decode('utf-8'),
+					condition={'section': '图片新闻'.decode('utf-8')},
 					number=10)
 				if Concerns.objects.filter(userId = userId).count > 0:
 					return HttpResponse([requestData,{'error': 'this userConcern has existed'}], status = 400)
