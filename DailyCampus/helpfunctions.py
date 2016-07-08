@@ -158,14 +158,14 @@ def Email(email):
 	f = random.randint(0, 9)
 	code = str(a) + str(b) + str(c) + str(d) + str(e) + str(f)
 	send_mail(
-        subject=u"今日校园", message= "[校验码]" + code + "(动态验证码，请勿泄露)，　你正在修改密码，需要进行校验。",
+        subject="今日校园".decode('utf8'), message= "[校验码]".decode('utf8') + code + "(动态验证码，请勿泄露)，　你正在修改密码，需要进行校验。".decode('utf8'),
         from_email='b14070316@njupt.edu.cn', recipient_list=[email, ], fail_silently=False,)
 	return code
 	pass
 
 def EmailCode(email, code):
 	send_mail(
-        subject=u"今日校园", message= "[校验码]" + code + "(动态验证码，请勿泄露)，　你正在修改密码，需要进行校验。",
+        subject="今日校园".decode('utf8'), message= "[校验码]".decode('utf8') + code + "(动态验证码，请勿泄露)，　你正在修改密码，需要进行校验。".decode('utf8'),
         from_email='b14070316@njupt.edu.cn', recipient_list=[email, ], fail_silently=False,)
 	return code
 	pass

@@ -92,7 +92,6 @@ def News(request):
 			#action，　１表示下拉刷新，-1表示加载
 			action = requestData['action']
 			d = requestData['depart']
-			print d 
 			user = User.objects.filter(userId = userId)
 			if user.count() < 1 or user.count() > 1:
 				requestData['error'] = '用户名不存在或者存在多个该用户'.decode('utf-8')
@@ -251,6 +250,7 @@ def Concerns(request):
 			return JsonResponse(data, status = 400)
 			pass
 		else:
+
 			if IsTokenRight(userId, token):
 				#departments为列表，形如["部门Ａ","部门Ｂ"]
 				departments = data['departments']
@@ -289,13 +289,13 @@ def Concerns(request):
 					collection='| Nanjing University of Posts and Telecommunications'.decode('utf-8'),
 					condition={'section': '图片新闻'.decode('utf-8')},
 					number=10)
-				if UserConcerns.objects.filter(userId = userId).count > 0:
-					return HttpResponse([requestData,{'error': 'this userConcern has existed'}], status = 400)
+				if UserConcerns.objects.filter(userId = userId).count() > 0:
+					return HttpResponse([data,{'error': 'this userConcern has existed'}], status = 400)
 					pass
 				isSecceed = InsertConcern(host=serverip,
 					port=dbport,
 					database=school,
-					collection='concerns',
+					collection='userconcerns',
 					userId=userId,
 					departments=departments,
 					sections = sections
