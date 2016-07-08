@@ -20,6 +20,7 @@ import random, simplejson,json
 #发邮件模块
 from django.core.mail import send_mail
 from smtplib import SMTPException
+from dailycampus.settings import serverip, dbport
 #根据拿到的mac地址生成经过MD5加密过的字符串，并将这个字符串返回
 def TokenWithMD5(mac, userId):
 	if type(mac) is types.StringType:
@@ -51,7 +52,7 @@ def GetToken(userId):
 #使用ｐｙｍｏｎｇｏ从数据库获取所有的集合名，并转换为与２的幂次方对应的键值对集合,
 #返回这个集合,注意这个键值对中，键的类型是ｌｏｎｇ
 def GetCollectionNames(host = serverip,
-	port = 27017,
+	port = dbport,
 	database = '南京邮电大学'):
 	names = {}
 	i = 0
@@ -72,7 +73,7 @@ def GetCollectionNames(host = serverip,
 pass
 #从数据库获取所有的部门以及版块信息，返回字典
 def GetDepartments(host = serverip,
-	port = 27017,
+	port = dbport,
 	database = '南京邮电大学',
 	collection = 'departments'):
 	departments = {}
@@ -92,14 +93,14 @@ def GetDepartments(host = serverip,
 	pass
 #向数据库中插入一条用户的关注方向数据，成功返回True，失败返回False
 def InsertConcern(host = serverip,
-	port = 27017,
+	port = dbport,
 	database = '南京邮电大学',
 	collection = 'concerns',
 	userId = '',
 	departments = [],
 	sections = {}):
 	mongo = MongoDB_Driver(db_ip=host,
-		db_port=27017,
+		db_port=port,
 		database_name=database)
 	dictionary = {'userId': userId, 'departments': departments, 'sections':sections}
 	isSecceed = mongo.db_insert(collection, dictionary)
@@ -108,7 +109,7 @@ def InsertConcern(host = serverip,
 #从数据库获取新闻，并按一定要求排序，返回游标
 
 def GetSortedNews(host = serverip,
-	port = 27017,
+	port = dbport,
 	database = '南京邮电大学',
 	collection = '南京邮电大学教务处',
 	condition = {},
@@ -123,7 +124,7 @@ def GetSortedNews(host = serverip,
 	pass
 
 #使用pymongo从数据库获取新闻，返回列表，该列表可序列化
-def GetNews(host = serverip, port = 27017,
+def GetNews(host = serverip, port = dbport,
 	database = '南京邮电大学',
 	collection = '教务处',
 	condition = {},
@@ -182,7 +183,7 @@ def EmailCode(email, code):
 '''
 def GetLastedNews(action,sections,
 	host = serverip,
-	port = 27017,
+	port = dbport,
 	database = '南京邮电大学',
 	sortcondition = [("timestamp", pymongo.DESCENDING)]):
 	mongo = MongoDB_Driver(db_ip= host,

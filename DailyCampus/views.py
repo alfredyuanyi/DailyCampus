@@ -20,8 +20,8 @@ import random, simplejson,json
 #发邮件模块
 from django.core.mail import send_mail
 from smtplib import SMTPException
+from dailycampus.settings import serverip, dbport
 # Create your views here.
-serverip = '180.209.64.38'
 
 
 class JsonResponse(HttpResponse):
@@ -104,7 +104,7 @@ def News(request):
 			if action == '1':
 				sortcondition = [('timestamp', pymongo.DESCENDING)]
 				news = GetLastedNews(host = serverip,
-					port=27017,
+					port=dbport,
 					database=school,
 					sections=depart,
 					sortcondition=sortcondition,
@@ -114,7 +114,7 @@ def News(request):
 			elif action == '-1':
 				sortcondition = [('timestamp', pymongo.ASCENDING)]
 				news = GetLastedNews(host=serverip,
-					port=27017,
+					port=dbport,
 					database=school,
 					sections=depart,
 					sortcondition=sortcondition,
@@ -124,7 +124,7 @@ def News(request):
 			elif action == '0':
 				sortcondition = [('timestamp', pymongo.DESCENDING)]
 				news = GetLastedNews(host=serverip,
-					port=27017,
+					port=dbport,
 					database=school,
 					sections = depart,
 					sortcondition = sortcondition,
@@ -157,11 +157,11 @@ def register(request):
 		if serializer.is_valid():
 			#获取所有的部门及其版块
 			departments = GetDepartments(host=serverip,
-				port=27017,
+				port=dbport,
 				database=school,
 				collection='departments')
 			# collectionnames = GetCollectionNames(host=serverip,
-			# 	port=27017,
+			# 	port=dbport,
 			# 	database=school)
 			serializer.save()
 			department = dict(departments, **serializer.data)
@@ -208,19 +208,19 @@ def login(request):
 			#这里应该是账号密码都正确,返回新闻
 			# school = user[0].school
 			# mongo = MongoDB_Driver(db_ip=serverip,
-			# 	db_port=27017,
+			# 	db_port=dbport,
 			# 	database_name = school,)
 			# userConcern = mongo.db_findOne(collection = 'testconcerns',
 			# 	condition = {'userId': userId})
 			# sections = userConcern['sections']
 			# news = GetLastedNews(host=serverip,
-			# 	port=27017,
+			# 	port=dbport,
 			# 	database=school,
 			# 	sections = sections,
 			# 	sortcondition=[("timestamp", pymongo.DESCENDING)],
 			# 	action = '1')
 			news = GetNews(host=serverip,
-				port=27017,
+				port=dbport,
 				database='南京邮电大学'.decode('utf-8'),
 				collection='南京邮电大学| Nanjing University of Posts and Telecommunications'.decode('utf-8'),
 				condition={'section': '南邮要闻'.decode('utf-8')},
@@ -265,7 +265,7 @@ def Concerns(request):
 				# 	for section in sections[depart]:
 				# 		sortcondition = [("timestamp", pymongo.DESCENDING)]
 				# 		cursor = GetSortedNews(host=serverip,
-				# 			port=27017,
+				# 			port=dbport,
 				# 			database=school,
 				# 			collection=depart,
 				# 			condition={'section': section},
@@ -284,7 +284,7 @@ def Concerns(request):
 				# 	concernedSections = {}
 				# 	pass
 				news = GetNews(host=serverip,
-					port=27017,
+					port=dbport,
 					database='南京邮电大学'.decode('utf-8'),
 					collection='南京邮电大学| Nanjing University of Posts and Telecommunications'.decode('utf-8'),
 					condition={'section': '南邮要闻'.decode('utf-8')},
@@ -293,7 +293,7 @@ def Concerns(request):
 					return HttpResponse([requestData,{'error': 'this userConcern has existed'}], status = 400)
 					pass
 				isSecceed = InsertConcern(host=serverip,
-					port=27017,
+					port=dbport,
 					database=school,
 					collection='testconcerns',
 					userId=userId,
@@ -424,11 +424,11 @@ def modifyConcerns(request):
 		if IsTokenRight(userId = userId,  token = token):
 			school = requestData['school']
 			mongo = MongoDB_Driver(db_ip=serverip,
-				db_port= 27017,
+				db_port= dbport,
 				database_name = '南京邮电大学')
 			userConcerns = mongo.db_findAll('concerns', {'userId': userId})[0]['sections']
 			allConcerns = GetDepartments(host=serverip,
-						port=27017,
+						port=dbport,
 						database=school,
 						collection='departments')
 			return HttpResponse([userConcerns,allConcerns], status = 201)
