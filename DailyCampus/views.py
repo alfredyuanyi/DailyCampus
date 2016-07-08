@@ -184,7 +184,7 @@ def register(request):
 				tel = requestData['tel'],
 				email = requestData['email'])
 			user[0].save()
-			userConcern = Concerns.objects.filter(userId = userId)
+			userConcern = UserConcerns.objects.filter(userId = userId)
 			userConcern[0].modify(userId = userId)
 			userConcern[0].save()
 			userpwd = Password.objects.filter(userId = userId)
@@ -210,7 +210,7 @@ def login(request):
 			# mongo = MongoDB_Driver(db_ip=serverip,
 			# 	db_port=dbport,
 			# 	database_name = school,)
-			# userConcern = mongo.db_findOne(collection = 'testconcerns',
+			# userConcern = mongo.db_findOne(collection = 'userconcerns',
 			# 	condition = {'userId': userId})
 			# sections = userConcern['sections']
 			# news = GetLastedNews(host=serverip,
@@ -289,13 +289,13 @@ def Concerns(request):
 					collection='| Nanjing University of Posts and Telecommunications'.decode('utf-8'),
 					condition={'section': '图片新闻'.decode('utf-8')},
 					number=10)
-				if Concerns.objects.filter(userId = userId).count > 0:
+				if UserConcerns.objects.filter(userId = userId).count > 0:
 					return HttpResponse([requestData,{'error': 'this userConcern has existed'}], status = 400)
 					pass
 				isSecceed = InsertConcern(host=serverip,
 					port=dbport,
 					database=school,
-					collection='testconcerns',
+					collection='concerns',
 					userId=userId,
 					departments=departments,
 					sections = sections
@@ -322,7 +322,7 @@ def Concerns(request):
 		if IsTokenRight(userId = userId, token = token):
 			departments = requestData['departments']
 			sections = requestData['sections']
-			userConcern = Concerns.objects.filter(userId = userId)
+			userConcern = UserConcerns.objects.filter(userId = userId)
 			if userConcern and userConcern.count == 1:
 				userConcern[0][departments] = departments
 				userConcern[0][sections] = sections
@@ -426,7 +426,7 @@ def modifyConcerns(request):
 			mongo = MongoDB_Driver(db_ip=serverip,
 				db_port= dbport,
 				database_name = '南京邮电大学')
-			userConcerns = mongo.db_findAll('concerns', {'userId': userId})[0]['sections']
+			userConcerns = mongo.db_findAll('userconcerns', {'userId': userId})[0]['sections']
 			allConcerns = GetDepartments(host=serverip,
 						port=dbport,
 						database=school,

@@ -27,7 +27,7 @@ class User(Document):
 #sections的例子，eg: {
 #	"": {"": , "": },
 #	"": {"": , "": }}
-class Concerns(Document):
+class UserConcerns(Document):
 	userId = StringField(required = True)
 	departments = ListField(required = True, default = [])
 	sections = DictField(required = True, default = {})
