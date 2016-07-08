@@ -6,5 +6,5 @@ class UserSerializer(DocumentSerializer):
 
 class ConcernsSerializer(DocumentSerializer):
 	class Meta:
-		model = Concerns 
+		model = UserConcerns 
 		
