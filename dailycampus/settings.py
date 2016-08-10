@@ -127,6 +127,7 @@ EMAIL_SUBJECT_PREFIX = u'[今日校园]' # 为邮件Subject-line前缀,默认是
 EMAIL_USE_TLS = True # 与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
 serverip = '180.209.64.38'
 dbport = 40020
+redisip = '127.0.0.1'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 

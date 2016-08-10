@@ -20,14 +20,14 @@ import random, simplejson,json
 #发邮件模块
 from django.core.mail import send_mail
 from smtplib import SMTPException
-from dailycampus.settings import serverip, dbport
+from dailycampus.settings import serverip, dbport, redisip
 #根据拿到的mac地址生成经过MD5加密过的字符串，并将这个字符串返回
 def TokenWithMD5(mac, userId):
 	if type(mac) is types.StringType:
 		m = hashlib.md5()
 		m.update(mac)
 		token = m.hexdigest()
-		r = redis.StrictRedis(host=serverip, port = 6379)
+		r = redis.StrictRedis(host=redisip, port = 6379)
 		r.set(userId, token)
 		return token
 		pass
@@ -37,7 +37,7 @@ def TokenWithMD5(mac, userId):
 
 #根据客户端传过来的ｔｏｋｅｎ，验证是否正确
 def IsTokenRight(userId, token):
-	r = redis.StrictRedis(host=serverip, port = 6379)
+	r = redis.StrictRedis(host=redisip, port = 6379)
 	if r.get(userId) == token:
 		return True
 		pass
@@ -45,7 +45,7 @@ def IsTokenRight(userId, token):
 		return False
 	pass
 def GetToken(userId):
-	r = redis.StrictRedis(host=serverip, port= 6379)
+	r = redis.StrictRedis(host=redisip, port= 6379)
 	token = r.get(userId)
 	return token
 	pass
