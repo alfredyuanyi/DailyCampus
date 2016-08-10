@@ -1,2 +1,1 @@
-this is the dailycampus project.
-this project was started for teachers who working at NJUPT.
+今日校园项目旨在服务广大高校教师，解决高校信息流通速度慢的问题，本仓库为服务端代码，目前只开发了南邮版，项目还在进行中。
