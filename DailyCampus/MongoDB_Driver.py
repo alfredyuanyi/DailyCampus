@@ -95,8 +95,8 @@ class MongoDB_Driver:
     @:function 根据condition条件在collection中查询，并按sortcondition排序
     @:param collection　查询的集合名
     @：param condition　查询的条件 eg: {"name": "qingtian"}
-    @:param sortcondition　排序的条件 eg: (["age", pymongo.ASCENDING])（升序）
-                                    (["age", pymongo.DESCENDING])（降序）    
+    @:param sortcondition　排序的条件 eg: [("age", pymongo.ASCENDING)]（升序）
+                                    [("age", pymongo.DESCENDING)]（降序）    
 
     '''
     def db_findSort(self, collection, condition,sortcondition):

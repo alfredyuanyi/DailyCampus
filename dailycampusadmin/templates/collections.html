@@ -1,0 +1,38 @@
+{% extends "adminbase.html" %}
+{% load poll_extras %}
+
+{% block title %} 操作 南京邮电大学 |站点管理{% endblock %}
+{% block css %}<link rel="stylesheet" type="text/css" href="/static/css/adminindex.css">{% endblock %}
+{% block content %}
+<div class="row" id="bigdiv">
+	<ol class="breadcrumb">
+	  <li><a href="/admin/adminindex/">首页</a></li>
+	  <li><a href="/admin/adminindex/warehouses/">仓库模块</a></li>
+	  <li class="active">南京邮电大学</li>
+	</ol>
+
+<h4>选择 集合 来修改</h4>
+<form class="form-inline" role="form" action="/admin/nupt/collections/seach/" method="GET">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInput"></label>
+    <input type="text" class="form-control" id="exampleInput" placeholder="" name="collectionName">
+  </div>
+  <div class="form-group">
+  	<button type="submit" class="btn btn-default">搜索</button>
+  </div>
+  
+</form>
+
+<table class="table table-striped">
+  <tr>
+  	<th>集合名</th>
+  </tr>
+    {% for name in collectionDicts %}
+  	<tr><td><a href="/admin/nupt/collections/{{ name| dictValue:collectionDicts }}/">{{ name }}</a></td></tr>
+  	{% endfor %}
+  
+</table>
+
+</div>
+
+{% endblock %}

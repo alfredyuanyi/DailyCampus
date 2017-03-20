@@ -60,6 +60,8 @@ instance/
 # Scrapy stuff:
 .scrapy
 
+# redis stuff:
+redis-stable/
 # Sphinx documentation
 docs/_build/
 

@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+SESSION_ENGINE = "django.contrib.sessions.backends.file"
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_mongoengine',
     'DailyCampus', 
+    'dailycampusadmin',
 ]
 
 MIDDLEWARE_CLASSES = [
