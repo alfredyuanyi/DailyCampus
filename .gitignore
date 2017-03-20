@@ -23,6 +23,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+redis-stable/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -60,8 +61,6 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# redis stuff:
-redis-stable/*
 # Sphinx documentation
 docs/_build/
 
