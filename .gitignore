@@ -61,7 +61,7 @@ instance/
 .scrapy
 
 # redis stuff:
-redis-stable/
+redis-stable/*
 # Sphinx documentation
 docs/_build/
 
